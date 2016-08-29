@@ -1,0 +1,26 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'checkstyle'
+apply plugin: 'cobertura'
+
+test.testLogging { exceptionFormat "full"; events "failed", "passed", "skipped" }
+checkstyle.ignoreFailures = true
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  testCompile 'junit:junit:4.+'
+}
+
+buildscript{ 
+  repositories {
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath 'net.saliman:gradle-cobertura-plugin:2.2.5'
+  }
+}
+cobertura.coverageFormats = ['html', 'xml']
