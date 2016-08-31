@@ -19,6 +19,13 @@ public final class Example {
 	public void printList(int size) {
 		ArrayList<Integer> integerList;
 		// TODO: IMPLEMENT ME
+		integerList = new ArrayList<Integer> ();
+		for (int i = 1; i < size + 1; i++) {
+			integerList.add(i);
+			System.out.print(String.valueOf(i) + ' ');
+		}
+		
+//		System.out.println(integerList);
 	}
 
 }
