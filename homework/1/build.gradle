@@ -1,0 +1,12 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'checkstyle'
+
+repositories {
+  mavenCentral()
+}
+
+checkstyle {
+  toolVersion = "6.7"
+}
+
