@@ -9,6 +9,7 @@ package edu.cmu.cs.cs214.rec02;
  * source of the bugs and correct them!
  * 
  * @author Alex Lockwood
+ * Added by zhilinh.
  */
 public class ArrayIntQueue implements IntQueue {
 

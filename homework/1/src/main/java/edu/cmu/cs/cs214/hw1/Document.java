@@ -6,9 +6,24 @@ import java.net.URL;
 import java.util.Hashtable;
 import java.util.Scanner;
 
+/**
+ * 
+ * @author zhilinh
+ * 
+ * Class with an urlString and a Hashtable referring to word frequencies to calculate cosine similarity.
+ *
+ */
 public class Document {
 	private Hashtable<String, Integer> dict;
 	private String url;
+	
+	/**
+	 * 
+	 * @param urlString
+	 * 					
+	 * @throws MalformedURLException
+	 * @throws IOException
+	 */
 
 	public Document(String urlString) throws MalformedURLException, IOException {
 		Scanner sc = new Scanner(new URL(urlString).openStream());
@@ -49,6 +64,9 @@ public class Document {
 
 	@Override
 	public String toString() {
+		/**
+		 * Print out the url of the Document class.
+		 */
 		return url;
 	}
 
