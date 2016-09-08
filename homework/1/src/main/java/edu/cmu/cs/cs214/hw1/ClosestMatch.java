@@ -19,16 +19,16 @@ public class ClosestMatch {
 	 * 				A Document list includes all URLs to be compared.
 	 */
 	private static void calcClosestDocs(List<Document> docList) {
-		float max_si = 0;
+		double maxSi = 0;
 		Document selectedDoc1 = null;
 		Document selectedDoc2 = null;
 		List<Document> docList2 = new ArrayList<>(docList);
 		for (Document doc1 : docList) {
 			docList2.remove(0);
 			for (Document doc2 : docList2) {
-				float tmp = doc1.calcSimilarity(doc2);
-				if (tmp > max_si) {
-					max_si = tmp;
+				double tmp = doc1.calcSimilarity(doc2);
+				if (tmp > maxSi) {
+					maxSi = tmp;
 					selectedDoc1 = doc1;
 					selectedDoc2 = doc2;
 				}
@@ -42,9 +42,11 @@ public class ClosestMatch {
 	 * Main method that takes a list of Documents represented by URLs and starts similarity calculation.
 	 * 
 	 * @param args
-	 * 			command line arguments ¡ª¡ª input all URLs.
+	 * 			command line arguments -- input all URLs.
 	 * @throws MalformedURLException
+	 * 			for URL exception.
 	 * @throws IOException
+	 * 			for URL exception.
 	 */
 	public static void main(String[] args) throws MalformedURLException, IOException {
 		List<Document> docList = new ArrayList<>();

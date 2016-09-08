@@ -21,7 +21,9 @@ public class Document {
 	 * @param urlString
 	 * 					a URL string to process a web page.
 	 * @throws MalformedURLException
+	 * 					for URL exception.
 	 * @throws IOException
+	 * 					for URL exception.
 	 */
 	public Document(String urlString) throws MalformedURLException, IOException {
 		Scanner sc = new Scanner(new URL(urlString).openStream());
@@ -37,10 +39,10 @@ public class Document {
 	 * @return
 	 * 			return the cosine similarity of two web pages.
 	 */
-	public float calcSimilarity(Document doc) {
-		float numerator = 0;
-		float denomA = 0;
-		float denomB = 0;
+	public double calcSimilarity(Document doc) {
+		double numerator = 0;
+		double denomA = 0;
+		double denomB = 0;
 
 		for (String key : this.dict.keySet()) {
 			if (doc.dict.containsKey(key)) {
@@ -53,7 +55,7 @@ public class Document {
 			denomB += Math.pow(doc.dict.get(key), 2);
 		}
 
-		return numerator / (float) Math.sqrt(denomA * denomB);
+		return numerator / (double) Math.sqrt(denomA * denomB);
 	}
 	
 	/**
@@ -88,7 +90,9 @@ public class Document {
 	 * @param args
 	 * 				command line arguments ¡ª¡ª input two URLs.
 	 * @throws MalformedURLException
+	 * 				for URL exception.
 	 * @throws IOException
+	 * 				for URL exception.
 	 */
 	public static void main(String[] args) throws MalformedURLException, IOException {
 		Document doc1 = new Document(args[0]);

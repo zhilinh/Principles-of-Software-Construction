@@ -26,28 +26,27 @@ public class ClosestMatches {
 		List<Document> docList2 = new ArrayList<>(docList);
 		List<Document> copydocList2 = new ArrayList<>(docList);
 
-		Hashtable<List<Document>, Float> docSi = new Hashtable<>();
+		Hashtable<List<Document>, Double> docSi = new Hashtable<>();
 
 		for (Document doc1 : docList) {
-			copydocList2.remove(0);
-			for (Document doc2 : copydocList2) {
-				float tmp = doc1.calcSimilarity(doc2);
+			docList2.remove(0);
+			for (Document doc2 : docList2) {
+				double tmp = doc1.calcSimilarity(doc2);
 				docSi.put(Arrays.asList(doc1, doc2), tmp);
 				docSi.put(Arrays.asList(doc2, doc1), tmp);
 			}
 		}
 
 		for (Document doc1 : docList) {
-			float maxSi = 0;
+			double maxSi = 0;
 			for (Document doc2 : copydocList2) {
 				if (doc1 != doc2 && docSi.get(Arrays.asList(doc1, doc2)) > maxSi) {
 					maxSi = docSi.get(Arrays.asList(doc1, doc2));
 					selectedDoc2 = doc2;
 				}
 			}
-			System.out.println(doc1);
+			System.out.print(doc1 + " ");
 			System.out.println(selectedDoc2);
-			System.out.println();
 		}
 	}
 
@@ -57,7 +56,9 @@ public class ClosestMatches {
 	 * @param args
 	 * 			command line arguments ¡ª¡ª input all URLs.
 	 * @throws MalformedURLException
+	 * 	 		for URL exception.
 	 * @throws IOException
+	 * 			for URL exception.
 	 */
 	public static void main(String[] args) throws MalformedURLException, IOException {
 		List<Document> docList = new ArrayList<>();
