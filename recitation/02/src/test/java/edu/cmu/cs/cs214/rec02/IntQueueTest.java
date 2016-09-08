@@ -9,7 +9,10 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
+import javax.swing.text.html.parser.Element;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -34,23 +37,24 @@ public class IntQueueTest {
 	@Before
 	public void setUp() {
 		// comment/uncomment these lines to test each class
-		mQueue = new LinkedIntQueue();
-		// mQueue = new ArrayIntQueue();
+		//mQueue = new LinkedIntQueue();
+		mQueue = new ArrayIntQueue();
 	}
-
+	
 	@Test
 	public void testIsEmpty() {
 		assertTrue(mQueue.isEmpty());
 	}
-
+	
 	@Test
 	public void testPeekEmptyQueue() {
+		mQueue.clear();
 		assertNull(mQueue.peek());
 	}
 
 	@Test
 	public void testContent() throws IOException {
-		ArrayList<Integer> correctResult = new ArrayList<Integer>();
+		List<Integer> correctResult = new ArrayList<>();
 		FileInputStream in = null;
 		in = new FileInputStream("src/test/resources/data.txt");
 		Scanner scanner = new Scanner(in);
