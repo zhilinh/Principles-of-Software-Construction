@@ -7,26 +7,30 @@ import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
 
+/**
+ * Class to find a URL string of the most similar web page for every URL string.
+ * 
+ * @author zhilinh
+ */
 public class ClosestMatches {
-	private static void ClosestMatches(String[] urls) throws MalformedURLException, IOException {
-		List<Document> docList = new ArrayList<>();
-		for (String url : urls) {
-			docList.add(new Document(url));
-		}
-
-		calcClosestDocs(docList);
-	}
-
+	
+	/**
+	 * Method that uses Document classes to calculate cosine similarity among all URLs,
+	 * to find the URL with the highest similarity with each of them then prints it out.
+	 * 
+	 * @param docList
+	 * 				A Document list includes all URLs to be compared.
+	 */
 	private static void calcClosestDocs(List<Document> docList) {
 		Document selectedDoc2 = null;
 		List<Document> docList2 = new ArrayList<>(docList);
-		List<Document> docList2_copy = new ArrayList<>(docList);
+		List<Document> copydocList2 = new ArrayList<>(docList);
 
 		Hashtable<List<Document>, Float> docSi = new Hashtable<>();
 
 		for (Document doc1 : docList) {
-			docList2.remove(0);
-			for (Document doc2 : docList2) {
+			copydocList2.remove(0);
+			for (Document doc2 : copydocList2) {
 				float tmp = doc1.calcSimilarity(doc2);
 				docSi.put(Arrays.asList(doc1, doc2), tmp);
 				docSi.put(Arrays.asList(doc2, doc1), tmp);
@@ -34,10 +38,10 @@ public class ClosestMatches {
 		}
 
 		for (Document doc1 : docList) {
-			float max_si = 0;
-			for (Document doc2 : docList2_copy) {
-				if (doc1 != doc2 && docSi.get(Arrays.asList(doc1, doc2)) > max_si) {
-					max_si = docSi.get(Arrays.asList(doc1, doc2));
+			float maxSi = 0;
+			for (Document doc2 : copydocList2) {
+				if (doc1 != doc2 && docSi.get(Arrays.asList(doc1, doc2)) > maxSi) {
+					maxSi = docSi.get(Arrays.asList(doc1, doc2));
 					selectedDoc2 = doc2;
 				}
 			}
@@ -47,8 +51,21 @@ public class ClosestMatches {
 		}
 	}
 
+	/**
+	 * Main method that takes a list of Documents represented by URLs and starts similarity calculation.
+	 * 
+	 * @param args
+	 * 			command line arguments ¡ª¡ª input all URLs.
+	 * @throws MalformedURLException
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws MalformedURLException, IOException {
-		ClosestMatches(args);
+		List<Document> docList = new ArrayList<>();
+		for (String url : args) {
+			docList.add(new Document(url));
+		}
+
+		calcClosestDocs(docList);
 	}
 
 }

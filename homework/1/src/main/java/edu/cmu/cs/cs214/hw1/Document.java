@@ -7,30 +7,36 @@ import java.util.Hashtable;
 import java.util.Scanner;
 
 /**
+ * Class to calculate cosine similarity of two web pages.
  * 
- * @author zhilinh
- * 
- * Class with an urlString and a Hashtable referring to word frequencies to calculate cosine similarity.
- *
+ *@author zhilinh *
  */
 public class Document {
 	private Hashtable<String, Integer> dict;
 	private String url;
 	
 	/**
+	 * Public constructor that takes a URL string and a Hashtable referring to words frequency. 
 	 * 
 	 * @param urlString
-	 * 					
+	 * 					a URL string to process a web page.
 	 * @throws MalformedURLException
 	 * @throws IOException
 	 */
-
 	public Document(String urlString) throws MalformedURLException, IOException {
 		Scanner sc = new Scanner(new URL(urlString).openStream());
 		buildDict(sc);
 		this.url = urlString;
 	}
-
+	
+	/**
+	 * Method that uses two words frequency tables to calculate their cosine similarity.
+	 * 
+	 * @param doc
+	 * 			A second Document to compare.
+	 * @return
+	 * 			return the cosine similarity of two web pages.
+	 */
 	public float calcSimilarity(Document doc) {
 		float numerator = 0;
 		float denomA = 0;
@@ -49,7 +55,13 @@ public class Document {
 
 		return numerator / (float) Math.sqrt(denomA * denomB);
 	}
-
+	
+	/**
+	 * Method that uses a Scanner and a Hashtable to process and save words in web pages and their frequency.
+	 * 
+	 * @param sc
+	 * 			A scanner to collect all words in web pages.
+	 */
 	private void buildDict(Scanner sc) {
 		dict = new Hashtable<>();
 		while (sc.hasNext()) {
@@ -62,14 +74,22 @@ public class Document {
 		}
 	}
 
+	/**
+	 * toString method that returns a URL string which identifies its Document.
+	 */
 	@Override
 	public String toString() {
-		/**
-		 * Print out the url of the Document class.
-		 */
 		return url;
 	}
-
+	
+	/**
+	 * Method that is called when this program runs (the 'main' method).
+	 * 
+	 * @param args
+	 * 				command line arguments ¡ª¡ª input two URLs.
+	 * @throws MalformedURLException
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws MalformedURLException, IOException {
 		Document doc1 = new Document(args[0]);
 		Document doc2 = new Document(args[1]);

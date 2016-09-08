@@ -5,15 +5,19 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class to find two URLs that represent two the most similar web pages among URLS.  
+ * @author zhilinh
+ */
 public class ClosestMatch {
-	private static void ClosestMatch(String[] urls) throws MalformedURLException, IOException {
-		List<Document> docList = new ArrayList<>();
-		for (String url : urls) {
-			docList.add(new Document(url));
-		}
-		calcClosestDocs(docList);
-	}
-
+	
+	/**
+	 * Method that uses Document classes to calculate cosine similarity,
+	 * to find two URLs with the highest similarity among all URLs.
+	 *  
+	 * @param docList
+	 * 				A Document list includes all URLs to be compared.
+	 */
 	private static void calcClosestDocs(List<Document> docList) {
 		float max_si = 0;
 		Document selectedDoc1 = null;
@@ -34,8 +38,20 @@ public class ClosestMatch {
 		System.out.println(selectedDoc2);
 	}
 
+	/**
+	 * Main method that takes a list of Documents represented by URLs and starts similarity calculation.
+	 * 
+	 * @param args
+	 * 			command line arguments ¡ª¡ª input all URLs.
+	 * @throws MalformedURLException
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws MalformedURLException, IOException {
-		ClosestMatch(args);
+		List<Document> docList = new ArrayList<>();
+		for (String url : args) {
+			docList.add(new Document(url));
+		}
+		calcClosestDocs(docList);
 	}
 
 }
