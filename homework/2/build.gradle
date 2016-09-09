@@ -1,0 +1,37 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'checkstyle'
+apply plugin: 'cobertura'
+
+test.testLogging { exceptionFormat "full"; events "failed", "passed", "skipped" }
+
+configurations.all {
+    resolutionStrategy {
+        force 'org.ow2.asm:asm:5.0.3'
+        forcedModules = [ 'org.ow2.asm:asm:5.0.3' ]
+    }
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+checkstyle {
+	ignoreFailures = true
+    toolVersion = "6.7"
+}
+
+buildscript{ 
+  repositories {
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath 'net.saliman:gradle-cobertura-plugin:2.2.5'
+  }
+}
+cobertura.coverageFormats = ['html', 'xml']
