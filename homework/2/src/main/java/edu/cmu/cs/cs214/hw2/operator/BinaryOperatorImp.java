@@ -24,7 +24,7 @@ public enum BinaryOperatorImp implements BinaryOperator {
 	MULTIPLICATION{
 		@Override
 		public String toString() {
-			return "¡Á";
+			return "*";
 		}
 		
 		public double apply(double arg1, double arg2) {
@@ -34,7 +34,7 @@ public enum BinaryOperatorImp implements BinaryOperator {
 	DIVISION{
 		@Override
 		public String toString() {
-			return "¡Â";
+			return "/";
 		}
 		
 		public double apply(double arg1, double arg2) {
@@ -44,7 +44,7 @@ public enum BinaryOperatorImp implements BinaryOperator {
 	EXPONENTIATION{
 		@Override
 		public String toString() {
-			return "x^y";
+			return "^";
 		}
 		
 		public double apply(double arg1, double arg2) {
