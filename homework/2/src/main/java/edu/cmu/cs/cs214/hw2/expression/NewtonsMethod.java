@@ -1,5 +1,10 @@
 package edu.cmu.cs.cs214.hw2.expression;
 
+/**
+ * Class to find a zero of a function using Newton's method
+ * @author zhilinh
+ *
+ */
 public class NewtonsMethod {
 
 	/**
@@ -13,10 +18,19 @@ public class NewtonsMethod {
 	* @return a value x for which f(x) is "close to zero" (<= tolerance)
 	*/
 	public double zero(Expression fn, Variable x, double approxZero, double tolerance) {
+		
+		// Continue the loop to find the zero when the difference between the value of
+		// variable x and approxZero is larger than tolerance.
+		
 		while (Math.abs(x.eval() - approxZero) > tolerance) {
+			
+			// Update the value of x to get closer to approxZero according to the formula
+			// of Newton's method.
+			
 			x.store(x.eval() - fn.eval() / new DerivativeExpression(fn, x).eval());
+			
 		}
-		return x.eval();
+		return x.eval(); // Return the value of the zero.
 	}
 
 }

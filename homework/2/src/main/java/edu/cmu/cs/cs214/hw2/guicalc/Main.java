@@ -10,13 +10,17 @@ import java.util.Set;
  * Main program that runs the GUI Calculator
  */
 public class Main {
+	
+	/**
+	 * Add BinaryOperators and UnaryOperators implements to the calculator.
+	 * 
+	 * @param args
+	 */
     public static void main(String[] args) {    	
-        // TODO: Replace null with your own unary operators. Use a Linked HashSet so operators are displayed in order.
         Set<UnaryOperator> unaryOperators = new HashSet<>();
         unaryOperators.add(UnaryOperatorImp.ABS);
         unaryOperators.add(UnaryOperatorImp.NEGATION);
         
-        // TODO: Replace null with your own binary operators. Use a Linked HashSet so operators are displayed in order
         Set<BinaryOperator> binaryOperators = new HashSet<>();
         binaryOperators.add(BinaryOperatorImp.ADDITION);
         binaryOperators.add(BinaryOperatorImp.SUBTRACTION);

@@ -17,24 +17,26 @@ public class Variable implements Expression {
      * Constructs a variable with the specified name, whose initial value is zero.
      */	
 	private String name;
-	private double value;
+	private double value = 0;
 	
     public Variable(String name) {
-        // TODO: Complete this method.
     	this.name = name;
-    	this.value = 0;
     }
 
+    /**
+     * Method that returns the value of the variable.
+     */
     @Override
     public double eval() {
-        // TODO: Complete this method.
         return value;
     }
 
+    /**
+     * toString method that returns the name and value of the variable.
+     */
     @Override
     public String toString() { 
-        // TODO: Complete this method.
-        return name + " is a variable with value " + Double.toString(value);
+        return name + " = " + Double.toString(value);
     }
 
     /**
@@ -43,16 +45,16 @@ public class Variable implements Expression {
      * @param value the new value of this variable
      */
     public void store(double value) {
-        // TODO: Complete this method.
-    	this.value = value;
     	//check the value of expression to value.
+    	if (this.eval() != value) {
+    		this.value = value;
+    	}
     }
 
     /**
      * Returns the name of this variable
      */
     public String name() { 
-        // TODO: Complete this method.
         return name;
     }
 }

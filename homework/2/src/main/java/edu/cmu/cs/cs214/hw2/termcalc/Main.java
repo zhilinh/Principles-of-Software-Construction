@@ -11,7 +11,6 @@ public class Main {
      * @param args program arguments
      */
     public static void main(String[] args) {
-        //TODO: Replace null with an instance of your own ExpressionMaker
         ExpressionMaker expressionMaker = new ExpressionMakerImp();
         TerminalCalculator calculator = new TerminalCalculator(expressionMaker);
 

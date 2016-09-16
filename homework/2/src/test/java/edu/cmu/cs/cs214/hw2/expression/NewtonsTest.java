@@ -5,6 +5,11 @@ import static org.junit.Assert.assertTrue;
 import java.math.BigDecimal;
 import org.junit.Test;
 
+/**
+ * Class to test the class NewtonsExpression
+ * @author zhilinh
+ *
+ */
 public class NewtonsTest {
 	private double approxZero = Math.sqrt(2.0);
 	private double tolerance = 1e-7;
@@ -14,6 +19,10 @@ public class NewtonsTest {
 	private Expression y = new NumberExpression(2.0);
 	private Expression xTest = new DifferenceExpression(xSquare, y);
 
+	/**
+	 * Test for zero method by generating an Expression xTest "x * x - 2"
+	 * and a variable xUndefined with name "x" with initial estimate 1.0.
+	 */
 	@Test
 	public void testZero() {
 		NewtonsMethod newtonsTest = new NewtonsMethod();

@@ -5,8 +5,16 @@ import java.math.BigDecimal;
 import org.junit.Test;
 import edu.cmu.cs.cs214.hw2.operator.BinaryOperatorImp;
 
+/**
+ * Class to test the class BinaryOperatorImp
+ * @author zhilinh
+ *
+ */
 public class BinaryOperatorTest {
 	
+	/**
+	 * Test for toString method and apply method of ADDITION.
+	 */
 	@Test
 	public void testAddition() {
 		double arg1 = 1.0;
@@ -17,6 +25,9 @@ public class BinaryOperatorTest {
 		assertEquals(BigDecimal.valueOf(additionOperator.apply(arg1, arg2)), BigDecimal.valueOf(arg3));
 	}
 	
+	/**
+	 * Test for toString method and apply method of SUBTRACTION.
+	 */
 	@Test
 	public void testSubtraction() {
 		double arg1 = 1.0;
@@ -27,6 +38,9 @@ public class BinaryOperatorTest {
 		assertEquals(BigDecimal.valueOf(subtractionOperator.apply(arg1, arg2)), BigDecimal.valueOf(arg3));
 	}
 	
+	/**
+	 * Test for toString method and apply method of MULTIPLICATION.
+	 */
 	@Test
 	public void testMultiplication() {
 		double arg1 = 2.0;
@@ -37,6 +51,9 @@ public class BinaryOperatorTest {
 		assertEquals(BigDecimal.valueOf(multiplicationOperator.apply(arg1, arg2)), BigDecimal.valueOf(arg3));
 	}
 	
+	/**
+	 * Test for toString method and apply method of DIVISION.
+	 */
 	@Test
 	public void testDivision() {
 		double arg1 = 2.0;
@@ -47,6 +64,9 @@ public class BinaryOperatorTest {
 		assertEquals(BigDecimal.valueOf(divisionOperator.apply(arg1, arg2)), BigDecimal.valueOf(arg3));
 	}
 	
+	/**
+	 * Test for toString method and apply method of EXPONENTIATION.
+	 */
 	@Test
 	public void testExponentiation() {
 		double arg1 = 2.0;
