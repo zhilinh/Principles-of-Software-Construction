@@ -18,6 +18,8 @@ public class Variable implements Expression {
 	
 	/**
      * Constructs a variable with the specified name, whose initial value is zero.
+     * 
+     * @param name assigned to the variable.
      */	
     public Variable(String name) {
     	this.name = name;

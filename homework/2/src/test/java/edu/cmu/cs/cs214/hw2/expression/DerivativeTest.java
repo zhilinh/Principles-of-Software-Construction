@@ -1,8 +1,6 @@
 package edu.cmu.cs.cs214.hw2.expression;
 
 import static org.junit.Assert.assertTrue;
-
-import java.math.BigDecimal;
 import org.junit.Test;
 
 /**

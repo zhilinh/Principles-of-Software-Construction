@@ -1,9 +1,8 @@
 package edu.cmu.cs.cs214.hw2.operator;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import java.math.BigDecimal;
 import org.junit.Test;
-import edu.cmu.cs.cs214.hw2.operator.BinaryOperatorImp;
 
 /**
  * Class to test the class BinaryOperatorImp

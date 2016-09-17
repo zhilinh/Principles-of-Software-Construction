@@ -1,5 +1,10 @@
 package edu.cmu.cs.cs214.hw2.operator;
 
+/**
+ * Enum that contains implements of UnaryOperator
+ * @author zhilinh
+ *
+ */
 public enum UnaryOperatorImp implements UnaryOperator {
 	ABS{
 		
