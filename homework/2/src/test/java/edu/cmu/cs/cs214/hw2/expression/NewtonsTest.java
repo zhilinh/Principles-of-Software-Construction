@@ -12,7 +12,7 @@ import org.junit.Test;
  */
 public class NewtonsTest {
 	private double approxZero = Math.sqrt(2.0);
-	private double tolerance = 1e-7;
+	private final double tolerance = 1e-7;
 	private Variable xUndefined = new Variable("x");
 	private Expression x = xUndefined;
 	private Expression xSquare = new ProductExpression(x, x);

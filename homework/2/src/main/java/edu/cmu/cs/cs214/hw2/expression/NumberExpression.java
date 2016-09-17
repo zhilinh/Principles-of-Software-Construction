@@ -27,7 +27,9 @@ public final class NumberExpression implements Expression{
 	}
 	
 	/**
-	 * Method that returns the value as the number. 
+	 * Method that returns the value as the number.
+	 * 
+	 *  @return returns the value.
 	 */
 	public double eval() {
 		return valueExpressed;

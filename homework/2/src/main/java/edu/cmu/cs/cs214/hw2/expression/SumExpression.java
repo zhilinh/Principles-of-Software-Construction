@@ -22,6 +22,8 @@ public final class SumExpression implements Expression {
 	
 	/**
 	 * Method that returns the value of the sum of two Expressions.
+	 * 
+	 * @return returns the value of the Expression.
 	 */
 	public double eval() {
 		return addend1.eval() + addend2.eval();

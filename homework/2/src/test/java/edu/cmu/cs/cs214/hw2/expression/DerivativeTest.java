@@ -26,7 +26,7 @@ public class DerivativeTest {
 	 */
 	@Test
 	public void testEval() {
-		double tolerance = 1e-7;
+		final double tolerance = 1e-5;
 		xUndefined.store(Math.random());
 		Expression derivativeTest = new DerivativeExpression(xTest, xUndefined);
 		assertTrue(Math.abs(2 * xUndefined.eval() - derivativeTest.eval()) < tolerance);

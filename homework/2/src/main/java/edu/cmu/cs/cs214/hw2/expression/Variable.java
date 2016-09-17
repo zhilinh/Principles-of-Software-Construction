@@ -13,18 +13,20 @@ package edu.cmu.cs.cs214.hw2.expression;
  */
 public class Variable implements Expression {
 	
-    /**
-     * Constructs a variable with the specified name, whose initial value is zero.
-     */	
 	private String name;
 	private double value = 0;
 	
+	/**
+     * Constructs a variable with the specified name, whose initial value is zero.
+     */	
     public Variable(String name) {
     	this.name = name;
     }
 
     /**
      * Method that returns the value of the variable.
+     * 
+     * @return returns the value.
      */
     @Override
     public double eval() {
@@ -53,6 +55,8 @@ public class Variable implements Expression {
 
     /**
      * Returns the name of this variable
+     * 
+     * @return returns the name of the variable.
      */
     public String name() { 
         return name;

@@ -13,7 +13,7 @@ import org.junit.Test;
 public class NumberTest {
 	
 	private Expression value;
-	private double number = 1.0;
+	private final double number = 1.0;
 	
 	/**
 	 * Set up to test the constructor.

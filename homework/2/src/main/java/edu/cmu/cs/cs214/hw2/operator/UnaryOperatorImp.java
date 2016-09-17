@@ -13,6 +13,9 @@ public enum UnaryOperatorImp implements UnaryOperator {
 		
 		/**
 		 * Method that returns the absolute value of arg.
+		 * 
+		 * @param arg as the value.
+		 * @return the absolute value.
 		 */
 		public double apply(double arg){
 			if (arg < 0) {
@@ -29,11 +32,14 @@ public enum UnaryOperatorImp implements UnaryOperator {
 		 */
 		@Override
 		public String toString() {
-			return "¡À";
+			return "neg";
 		}
 		
 		/**
 		 * Method that returns the value of arg with a contrary sign.
+		 * 
+		 * @param arg as the value.
+		 * @return the negated value.
 		 */
 		public double apply(double arg){
 			return -arg;

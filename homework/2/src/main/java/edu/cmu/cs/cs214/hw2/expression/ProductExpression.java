@@ -31,6 +31,8 @@ public final class ProductExpression implements Expression {
 	
 	/**
 	 * Method that returns the value of the product.
+	 * 
+	 * @return returns the value of the Expression.
 	 */
 	public double eval() {
 		return factor1.eval() * factor2.eval();

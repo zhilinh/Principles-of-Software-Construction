@@ -36,6 +36,8 @@ public final class AbsoluteValueExpression implements Expression {
 	
 	/**
 	 * Method that returns the value of the Expression.
+	 * 
+	 * @return returns the value of the Expression.
 	 */
 	public double eval() {
 		if (value.eval() < 0) {

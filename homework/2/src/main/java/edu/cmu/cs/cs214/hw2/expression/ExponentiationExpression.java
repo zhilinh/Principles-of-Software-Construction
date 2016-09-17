@@ -31,6 +31,8 @@ public final class ExponentiationExpression implements Expression {
 	
 	/**
 	 * Method that returns the result of the computation.
+	 * 
+	 * @return returns the value of the Expression. 
 	 */
 	public double eval() {
 		return Math.pow(base.eval(), exponent.eval());

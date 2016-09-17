@@ -14,7 +14,7 @@ public class Main {
 	/**
 	 * Add BinaryOperators and UnaryOperators implements to the calculator.
 	 * 
-	 * @param args
+	 * @param args as input
 	 */
     public static void main(String[] args) {    	
         Set<UnaryOperator> unaryOperators = new HashSet<>();

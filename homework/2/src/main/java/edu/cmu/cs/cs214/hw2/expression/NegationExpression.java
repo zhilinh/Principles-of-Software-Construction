@@ -20,13 +20,15 @@ public final class NegationExpression implements Expression {
 	
 	/**
 	 * Method that returns the value of the Expression with an contrary sign.
+	 * 
+	 * @return returns the value of the Expression.
 	 */
 	public double eval() {
 		return -1 * operand.eval();
 	}
 	
 	/**
-	 * toString method that returns the Expression with an contrary sign.
+	 * toString method that returns the Expression with an contrary sign.	 * 
 	 */	
 	@Override
 	public String toString() {

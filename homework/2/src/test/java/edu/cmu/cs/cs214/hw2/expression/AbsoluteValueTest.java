@@ -14,8 +14,8 @@ public class AbsoluteValueTest {
 	
 	private Expression absTest1;
 	private Expression absTest2;
-	private double number1 = 1.0;
-	private double number2 = -1.0;
+	private final double number1 = 1.0;
+	private final double number2 = -1.0;
 	private Expression addend1 = new NumberExpression(number1);
 	private Expression addend2 = new NumberExpression(number2);
 	

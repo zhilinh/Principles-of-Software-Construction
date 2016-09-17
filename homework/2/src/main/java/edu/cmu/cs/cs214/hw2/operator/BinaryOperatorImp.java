@@ -18,6 +18,10 @@ public enum BinaryOperatorImp implements BinaryOperator {
 		
 		/**
 		 * Method that returns the sum of arg1 and arg2.
+		 * 
+		 * @param arg1 the first addend.
+		 * @param arg2 the second addend.
+		 * @return the value of the sum.
 		 */
 		public double apply(double arg1, double arg2) {
 			return arg1 + arg2;
@@ -35,6 +39,10 @@ public enum BinaryOperatorImp implements BinaryOperator {
 		
 		/**
 		 * Method that returns the difference of arg1 and arg2.
+		 * 
+		 * @param arg1 the first number.
+		 * @param arg2 the second number.
+		 * @return the value of the difference.
 		 */
 		public double apply(double arg1, double arg2) {
 			return arg1 - arg2;
@@ -52,6 +60,10 @@ public enum BinaryOperatorImp implements BinaryOperator {
 		
 		/**
 		 * Method that returns the product of arg1 and arg2.
+		 * 
+		 * @param arg1 the first number.
+		 * @param arg2 the second number.
+		 * @return the value of the product.
 		 */
 		public double apply(double arg1, double arg2) {
 			return arg1 * arg2;
@@ -69,6 +81,10 @@ public enum BinaryOperatorImp implements BinaryOperator {
 		
 		/**
 		 * Method that returns the division of arg1 and arg2.
+		 * 
+		 * @param arg1 the first number.
+		 * @param arg2 the second number.
+		 * @return the value of the division.
 		 */
 		public double apply(double arg1, double arg2) {
 			return arg1 / arg2;
@@ -86,6 +102,10 @@ public enum BinaryOperatorImp implements BinaryOperator {
 		
 		/**
 		 * Method that returns the product of arg1 and arg2.
+		 * 
+		 * @param arg1 the first number.
+		 * @param arg2 the second number.
+		 * @return the value of the exponentiation.
 		 */
 		public double apply(double arg1, double arg2) {
 			return Math.pow(arg1, arg2);

@@ -13,9 +13,9 @@ import org.junit.Test;
 public class ExponentiationTest {
 	
 	private Expression exponentiationTest;
-	private double number1 = 2.0;
-	private double number2 = 4.0;
-	private double number3 = 16.0;
+	private final double number1 = 2.0;
+	private final double number2 = 4.0;
+	private final double number3 = 16.0;
 	private Expression addend1 = new NumberExpression(number1);
 	private Expression addend2 = new NumberExpression(number2);
 	

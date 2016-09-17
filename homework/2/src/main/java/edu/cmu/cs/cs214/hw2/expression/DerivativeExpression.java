@@ -20,14 +20,16 @@ public class DerivativeExpression implements Expression {
 	* @param independent the variable with respect to which we're
 	* differentiating
 	*/
-	public DerivativeExpression(Expression fn, Variable indepedent) {
+	public DerivativeExpression(Expression fn, Variable independent) {
 		fnVal = fn.eval();
 		this.fn = fn;
-		this.independentVar = indepedent;
+		this.independentVar = independent;
 	}
 	
 	/**
 	 * Method that returns the derivative of the Expression.
+	 * 
+	 * @return returns the value of the Expression.
 	 */
 	@Override
 	public double eval() {
