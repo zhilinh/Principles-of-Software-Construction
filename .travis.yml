@@ -5,3 +5,6 @@ jdk:
 env: TERM=dumb
 
 script: timeout 600 gradle check
+
+notifications:
+    email: false
