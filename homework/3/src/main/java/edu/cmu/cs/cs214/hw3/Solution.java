@@ -8,9 +8,9 @@ import edu.cmu.cs.cs214.hw2.expression.Variable;
 
 public class Solution {
 	
-	List<List<Integer>> cList = new ArrayList<List<Integer>>();
-	List<Variable> vList;
-	List<Expression> result;
+	private List<List<Integer>> cList = new ArrayList<List<Integer>>();
+	private List<Variable> vList;
+	private List<Expression> result;
 
 	public Solution(List<List<Integer>> getcList, List<Variable> vList, List<Expression> result) {
 		this.vList = vList;
@@ -22,7 +22,7 @@ public class Solution {
 		
 		List<String> rList = new ArrayList<String>();
 		for (List<Integer> subList : cList) {			
-			ArrayIterator ai = new ArrayIterator(vList.size(), subList);
+			ArrayIterator<Integer> ai = new ArrayIterator<Integer>(vList.size(), subList);
 			Iterator<List<Integer>> it = ai.iterator();
 			while (it.hasNext()) {
 				List<Integer> s = it.next();
