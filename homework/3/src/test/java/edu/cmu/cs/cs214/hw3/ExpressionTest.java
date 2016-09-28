@@ -11,6 +11,11 @@ import org.junit.Before;
 import org.junit.Test;
 import edu.cmu.cs.cs214.hw2.expression.Variable;
 
+/**
+ * Class to test the ExpressionConstructor class.
+ * @author zhilinh
+ *
+ */
 public class ExpressionTest {
 
 	private ExpressionConstructor rightExpression;
@@ -20,6 +25,10 @@ public class ExpressionTest {
 	private List<Variable> wList = new ArrayList<Variable>();
 	private Variable a = new Variable("A");
 	
+	/**
+	 * Set up to test the construct and generate correct
+	 * and wrong Expressions for test.
+	 */
 	@Before
 	public void setup () {
 		this.wList.add(a);
@@ -33,6 +42,11 @@ public class ExpressionTest {
 		this.wrongExpression3 = new ExpressionConstructor(wrongString3, wList);
 	}
 	
+	/**
+	 * Test for constructing the correct Expression and
+	 * exception for wrong Expression due to redundant
+	 * operators and characters.
+	 */
 	@Test
 	public void testConstructor() {
 		assertEquals(rightExpression.Constructor().get(0).toString(), "(((A+A)-A)*A)");

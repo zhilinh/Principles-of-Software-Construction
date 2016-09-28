@@ -73,6 +73,7 @@ public class ArrayIterator<E> implements Iterable<List<E>> {
 		
 		/**
 		 * Method to generate the next permutation and move the index.
+		 * Using heap's Algorithm without recursion.
 		 */
 		@Override
 		public List<E> next() {

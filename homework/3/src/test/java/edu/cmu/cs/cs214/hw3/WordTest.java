@@ -10,12 +10,20 @@ import org.junit.Before;
 import org.junit.Test;
 import edu.cmu.cs.cs214.hw2.expression.Variable;
 
+/**
+ * Class to test the WordExpression class.
+ * @author zhilinh
+ *
+ */
 public class WordTest {
 	
 	private List<Variable> vList = new ArrayList<Variable>();
 	private List<Variable> wList = new ArrayList<Variable>();
 	private WordExpression word;
 
+	/**
+	 * Set up to test the constructor and generate a named variable list.
+	 */
 	@Before
 	public void setup() {
 		for (int i = 0; i < 11; i++) {
@@ -27,11 +35,17 @@ public class WordTest {
 		this.word = new WordExpression("ABC", vList);
 	}
 	
+	/**
+	 * Test for the toString method to get the right output for Expression.
+	 */
 	@Test
 	public void testtoString() {
 		assertEquals(word.toString(), "ABC");
 	}
 	
+	/**
+	 * Test for the eval method to get the correct value of a WordExpression.
+	 */
 	@Test
 	public void testEval() {
 		vList.get(0).store(1);

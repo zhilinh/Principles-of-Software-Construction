@@ -10,10 +10,19 @@ import org.junit.Test;
 
 import edu.cmu.cs.cs214.hw2.expression.Variable;
 
+/**
+ * Class to test the Parsing class.
+ * @author zhilinh
+ *
+ */
 public class ParsingTest {
 
 	Parsing test, wrongTest1,wrongTest2;
 	
+	/**
+	 * Set up to test the constructor and generate legal and
+	 * illegal string for parsing.
+	 */
 	@Before
 	public void setup() {
 		this.test = new Parsing(new String[]{"ABC", "+", "CD", "=", "EF"});
@@ -21,6 +30,10 @@ public class ParsingTest {
 		this.wrongTest2 = new Parsing(new String[]{"ABC", "GH", "CD", "IJKLM", "EF"});
 	}
 	
+	/**
+	 * Test for the doParsing method and exception due to
+	 * illegal characters and character numbers for than ten.
+	 */
 	@Test
 	public void testdoParsing() {
 		List<Variable> testList = test.doParsing();

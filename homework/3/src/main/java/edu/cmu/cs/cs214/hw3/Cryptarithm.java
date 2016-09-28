@@ -33,7 +33,7 @@ public class Cryptarithm {
 		} else {
 			System.out.println(rList.size() + " solution(s):");
 			for (String i : rList) {
-			System.out.println(i);
+				System.out.println(i);
 			}
 		}
 	}

@@ -8,10 +8,18 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Class to test the ArrayIterator class.
+ * @author zhilinh
+ *
+ */
 public class IteratorTest {
 	
 	private ArrayIterator<Integer> ai;
 	
+	/**
+	 * Set up to test the constructor and create a number list.
+	 */
 	@Before
 	public void setup() {
 		List<Integer> array = new ArrayList<Integer>();
@@ -21,6 +29,10 @@ public class IteratorTest {
 		this.ai = new ArrayIterator<Integer>(n, array);
 	}
 
+	/**
+	 * Test for the permutation generator, the swap method and
+	 * the hasNext method.
+	 */
 	@Test
 	public void testIterator() {
 		Iterator<List<Integer>> permutationTest = ai.iterator();

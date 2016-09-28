@@ -6,11 +6,20 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Class to test the Combination class.
+ * @author zhilinh
+ *
+ */
 public class CombinationTest {
 
 	private Combination test;
 	private List<Integer> array = new ArrayList<Integer>();
 	
+	/**
+	 * Set up to test the constructor and
+	 * create a list with numbers from 0 to 9.
+	 */
 	@Before
 	public void setup() {
 		int n = 1;
@@ -21,11 +30,17 @@ public class CombinationTest {
 		array.add(9);
 	}
 	
+	/**
+	 * Test for generating the number list with 0 to 9.
+	 */
 	@Test
 	public void testonetoTen() {
 		assertEquals(test.onetoTen(), array);
 	}
 	
+	/**
+	 * Test for generating the combination of numbers given.
+	 */
 	@Test
 	public void testGenerator() {
 		test.generator(array, new ArrayList<Integer>());

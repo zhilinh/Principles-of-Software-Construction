@@ -9,11 +9,20 @@ import edu.cmu.cs.cs214.hw2.expression.Expression;
 import edu.cmu.cs.cs214.hw2.expression.SumExpression;
 import edu.cmu.cs.cs214.hw2.expression.Variable;
 
+/**
+ * Class to test the Solution class.
+ * @author zhilinh
+ *
+ */
 public class SolutionTest {
 
 	Solution test;
 	List<Expression> result = new ArrayList<Expression>();
 	
+	/**
+	 * Set up to test the constructor and generate an equation,
+	 * a variable list and a number list to solve a simple cryptarithm.
+	 */
 	@Before
 	public void setup() {
 		Variable a = new Variable("A");Variable b = new Variable("B");
@@ -30,6 +39,9 @@ public class SolutionTest {
 		this.test = new Solution(cList,vList,result);
 	}
 	
+	/**
+	 * Test for the Comparison method to see if it gets the correct solution.
+	 */
 	@Test
 	public void testComparison() {
 		List<String> rList = new ArrayList<String>();

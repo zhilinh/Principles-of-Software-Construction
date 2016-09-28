@@ -29,8 +29,8 @@ public class ExpressionConstructor {
 	}
 	
 	/**
-	 * Method to analyze the composition of an equation. Transform string and operation
-	 * into Expression to calculate.
+	 * Method to analyze the composition of an equation. Transform strings
+	 * and operations into Expression to calculate.
 	 * @return a list of two Expression result besides the "=".
 	 */
 	public List<Expression> Constructor() {
