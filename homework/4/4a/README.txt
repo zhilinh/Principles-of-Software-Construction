@@ -1,0 +1,1 @@
+Change-player's-score tile: All players' score will rotate to the next player.
