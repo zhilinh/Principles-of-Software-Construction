@@ -50,7 +50,15 @@ public class CryptarithmSolverGui extends JFrame {
 
         // Your code for steps 1-7 goes here.
 
-        this.solver = solver;
+    	super(TITLE);
+    	this.solver = solver;
+    	setDefaultCloseOperation(EXIT_ON_CLOSE);
+    	this.inputPanel = new InputPanel();
+    	this.solutionArea = new JTextArea();
+        setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
+    	add(this.inputPanel);
+    	add(this.solutionArea);
+    	super.pack();
     }
 
     private class InputPanel extends JPanel {
@@ -86,6 +94,11 @@ public class CryptarithmSolverGui extends JFrame {
             */
 
             // Your code for steps 1-4 goes here.
+        	this.solveButton = new JButton(SOLVE_BUTTON_TEXT);
+        	this.input = new JTextField(PROMPT, INPUT_FIELD_WIDTH);
+        	this.solveButton.addActionListener(e -> solutionArea.setText(solver.solve(input.getText()).toString()));
+        	this.add(solveButton);
+        	this.add(input);
         }
     }
 }

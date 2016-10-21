@@ -21,6 +21,9 @@ public class Main {
              */
 
              // Your code goes here
+        	TheBestCryptarithmSolver solver = new TheBestCryptarithmSolver();
+        	CryptarithmSolverGui gui = new CryptarithmSolverGui(solver);
+        	gui.setVisible(true);
         });
     }
 }
