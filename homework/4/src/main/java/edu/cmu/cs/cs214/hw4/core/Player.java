@@ -177,6 +177,7 @@ public class Player {
 		this.lastMoveScore = 0;
 		this.move = move;
 		this.updateTiles(move);
+		move.placeTile(board);
 		move.getWords(board, move.getLocations());
 		wordList = move.getWordList();
 		for (Word i : wordList) {

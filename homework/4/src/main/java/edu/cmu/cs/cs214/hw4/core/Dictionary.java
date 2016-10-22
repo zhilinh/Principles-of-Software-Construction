@@ -44,8 +44,8 @@ public class Dictionary {
 	public boolean validateWord(String word) {
 		String newWord = word.toLowerCase();
 		if (! dic.contains(newWord)) {
-			return false;
+			return true;
 		}
-		return true;
+		return false;
 	}
 }

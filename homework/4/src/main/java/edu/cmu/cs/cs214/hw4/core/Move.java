@@ -18,12 +18,21 @@ public class Move {
 	private List<Location> locs = new ArrayList<Location>();
 	private List<Location> spLocs = new ArrayList<Location>();
 	private List<Word> wordList = new ArrayList<Word>();
-	private boolean firstMove;
+	private boolean firstMove = false;
 	
 	public Move(List<Tile> tiles, List<Location> locs) {
 		this.tiles = tiles;
 		this.locs = locs;
-		startLocation = locs.get(0);
+		if (! locs.isEmpty()){
+			startLocation = locs.get(0);
+		}
+	}
+	
+	/**
+	 * Class to set the move as the first move of the game.
+	 */
+	public void setFirstMove() {
+		firstMove = true;
 	}
 	
 	/**
@@ -42,7 +51,7 @@ public class Move {
 			loc.removeTile();
 		}
 	}
-	
+
 	/**
 	 * Method to remove the special tile on the location.
 	 */
@@ -54,19 +63,23 @@ public class Move {
 	
 	/**
 	 * Method to place tiles on many locations of the move.
+	 * @param board TODO
 	 */
-	public void placeTile() {
+	public void placeTile(Board board) {
 		for (int i = 0; i < locs.size(); i++) {
-			locs.get(i).placeTile(tiles.get(i));
+			board.getLocation(locs.get(i).getX(), locs.get(i).getY()).placeTile(tiles.get(i));
 		}
 	}
 	
 	/**
 	 * Method to place special tiles of the move.
+	 * @param board TODO
 	 */
-	public void placeSpecialTile() {
+	public void placeSpecialTile(List<SpecialTile> tiles, List<Location> locs, Board board) {
+		specialTiles = tiles;
+		spLocs = locs;
 		for (int i = 0; i < spLocs.size(); i++) {
-			spLocs.get(i).placeSpecialTile(specialTiles.get(i));
+			board.getLocation(spLocs.get(i).getX(), spLocs.get(i).getY()).placeSpecialTile(specialTiles.get(i));
 		}
 	}
 	
@@ -119,26 +132,46 @@ public class Move {
 	public void getWords(Board board, List<Location> locs) {
 		Word word = new Word();
 		wordList = new ArrayList<Word>();
-		
-		for (Location i : locs) {
-			word.addBaseValue(i.getTile().getValue());
-			word.addLetter(i.getTile().getLetter());
-			word.addLocation(i);
-			if (i.getMultiplier() != null) {
-				i.getMultiplier().updateWord(word, i.getTile());
-			}
-		}
-		word.multiplyBaseValue();
-		wordList.add(word);
-		
+
 		if (locs.size() == 1) {
 			wordList.addAll(makeWords(board, true));
 			wordList.addAll(makeWords(board, false));
 		} else {
+			int x = locs.get(0).getX();
+			int y = locs.get(0).getY();
+			
 			if (locs.get(0).getX() == locs.get(1).getX()) {
-				wordList.addAll(makeWords(board, true));
-			} else {
+				while (board.getLocation(x, y).isOnNormalTile()) {
+					if (y == 0) {
+						break;
+					}
+					y--;
+				}
+				y++;
+				while (board.getLocation(x, y).isOnNormalTile()) {
+					word.addBaseValue(board.getLocation(x, y).getTile().getValue());
+					word.addLetter(board.getLocation(x, y).getTile().getLetter());
+					word.addLocation(board.getLocation(x, y));
+					y++;
+				}
+				wordList.add(word);
 				wordList.addAll(makeWords(board, false));
+			} else {
+				while (board.getLocation(x, y).isOnNormalTile()) {
+					if (x == 0) {
+						break;
+					}
+					x--;
+				}
+				x++;
+				while (board.getLocation(x, y).isOnNormalTile()) {
+					word.addBaseValue(board.getLocation(x, y).getTile().getValue());
+					word.addLetter(board.getLocation(x, y).getTile().getLetter());
+					word.addLocation(board.getLocation(x, y));
+					x++;
+				}
+				wordList.add(word);
+				wordList.addAll(makeWords(board, true));
 			}
 		}
 	}
@@ -170,20 +203,33 @@ public class Move {
 					x--;	
 				}				
 			}
+			if (pointer) {
+				y++;
+			} else {
+				x++;
+			}
 			while (board.getLocation(x, y).isOnNormalTile()) {
 				word.addBaseValue(board.getLocation(x, y).getTile().getValue());
 				word.addLetter(board.getLocation(x, y).getTile().getLetter());
 				word.addLocation(i);
 				if (pointer) {
+					if (y == 14) {
+						break;
+					}
 					y++;
 				} else {
+					if (x == 14) {
+						break;
+					}
 					x++;
 				}
 			}
-			if (i.getMultiplier() != null) {
-				i.getMultiplier().updateWord(word, i.getTile());
+//			if (i.getMultiplier() != null) {
+//				i.getMultiplier().updateWord(word, i.getTile());
+//			}
+			if (word.getWordLength() != 1) {
+				wordList.add(word);
 			}
-			wordList.add(word);
 		}
 		return wordList;
 	}

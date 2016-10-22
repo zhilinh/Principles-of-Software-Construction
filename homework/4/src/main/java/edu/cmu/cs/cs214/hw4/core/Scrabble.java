@@ -15,7 +15,7 @@ public class Scrabble {
 	private Player currentPlayer;
 	private TileLog tileLog = new TileLog();
 	private Board board = new Board();
-	private Dictionary dic;
+	private Dictionary dic = new Dictionary("C:/Users/Chillin'/zhilinh/homework/4/src/main/resources/words.txt");
 	private int playerNum = 0;
 	private int counterNum = 1;
 	private int playerMaxNum;
@@ -26,7 +26,6 @@ public class Scrabble {
 	 */
 	public static void main(String[] args) {
 		Scrabble scrabble = new Scrabble(args);
-		scrabble.startGame();
 	}
 	
 	/**
@@ -38,13 +37,7 @@ public class Scrabble {
 		for (String i : args) {
 			this.addPlayer(i);
 		}
-	}
-	
-	/**
-	 * Method to start the game.
-	 */
-	public void startGame() {
-		
+		currentPlayer = this.getCurrentPlayer();
 	}
 	
 	/**
@@ -57,7 +50,7 @@ public class Scrabble {
 	/**
 	 * Method to run the game, decide if the game ends and find the winner.
 	 */
-	public void runGame() {
+	public void runGame(Move move) {
 		int num;
 		while (! (this.doesPlayerStop() || this.doesGameStop())) {
 			num = currentPlayer.getMaxNumTile() - currentPlayer.getTiles().size();
@@ -66,7 +59,7 @@ public class Scrabble {
 			if (currentPlayer.getSkip()) {
 				currentPlayer.skipFalse();
 			} else {
-				makeMove();
+				makeMove(move);
 			}
 			currentPlayer = this.getNextPlayer();
 			}
@@ -77,6 +70,7 @@ public class Scrabble {
 			if (i.getScore() > maxScore) {
 				maxScore = i.getScore();
 				winner = new ArrayList<Player>();
+				winner.add(i);
 			} else if (i.getScore() == maxScore) {
 				winner.add(i);
 			}
@@ -88,15 +82,10 @@ public class Scrabble {
 	/**
 	 * Method to introduce the move to players, challenge it and update scores.
 	 */
-	public void makeMove() {
-		List<Tile> tiles = new ArrayList<Tile>();
-		List<Location> locs = new ArrayList<Location>();
-		Move move = new Move(tiles, locs);
-		
+	public void makeMove(Move move) {		
 		if (checkMoveValidation(move)) {
 			currentPlayer.runMove(board, move);
-			move.placeTile();
-			move.placeSpecialTile();			
+			move.placeTile(board);
 			
 			List<Player> challenger = getChallenger();
 			boolean challengeResult = false;
@@ -125,7 +114,6 @@ public class Scrabble {
 			}
 		} else {
 			System.out.println("Invalid Move!");
-			makeMove();
 		}
 	}
 	
@@ -177,9 +165,11 @@ public class Scrabble {
 			playerNum = 0;
 			return players.get(0);
 		} else if ((playerNum == 0) && (counterNum == -1)) {
+			playerNum = playerMaxNum;
 			return players.get(playerMaxNum);
 		} else {
-			return players.get(playerNum + counterNum);
+			playerNum += counterNum;
+			return players.get(playerNum);
 		}		
 	}
 	
@@ -265,7 +255,7 @@ public class Scrabble {
 	 * @return true if someone wants to stop and vice versa
 	 */
 	public boolean doesPlayerStop() {
-		return false;
+		return true;
 	}
 	
 	/**
@@ -293,11 +283,11 @@ public class Scrabble {
 			}
 		}
 		
-		if (move.isFirstMove() && (board.isOnStar(move))) {
-			return false;
-		}
-		
-		if (! board.isAdjacent(move)) {
+		if (move.isFirstMove()){
+			if (! board.isOnStar(move)) {
+				return false;
+			}
+		} else if (! board.isAdjacent(move)) {
 			return false;
 		}
 		

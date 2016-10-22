@@ -138,15 +138,21 @@ public class Board {
 				int max = move.getLocations().get(0).getY();
 				int min = move.getLocations().get(0).getY();
 				List<Integer> yList = new ArrayList<Integer>();
+				yList.add(min);
 				for (int i = 1; i < move.getTileNumber(); i++) {
 					if (! (move.getLocations().get(i).getX() == move.getLocations().get(0).getX())) {
 						return false;
 					}
-					this.makeComparison(move.getLocations().get(i).getY(), max, min);
+					if (move.getLocations().get(i).getY() > max) {
+						max = move.getLocations().get(i).getY();
+					}
+					if (move.getLocations().get(i).getY() < min) {
+						min = move.getLocations().get(i).getY();
+					}
 					yList.add(move.getLocations().get(i).getY());
 				}
 				for (int i = min; i < max; i++) {
-					if (! locs[move.getLocations().get(i).getX()][i].isOnNormalTile()) {
+					if (! locs[move.getLocations().get(0).getX()][i].isOnNormalTile()) {
 						if (! yList.contains(i)) {
 							return false;
 						}
@@ -157,15 +163,21 @@ public class Board {
 				int max = move.getLocations().get(0).getX();
 				int min = move.getLocations().get(0).getX();
 				List<Integer> xList = new ArrayList<Integer>();
+				xList.add(min);
 				for (int i = 1; i < move.getTileNumber(); i++) {
 					if (! (move.getLocations().get(i).getY() == move.getLocations().get(0).getY())) {
 						return false;
 					}
-					this.makeComparison(move.getLocations().get(i).getX(), max, min);
+					if (move.getLocations().get(i).getX() > max) {
+						max = move.getLocations().get(i).getX();
+					}
+					if (move.getLocations().get(i).getX() < min) {
+						min = move.getLocations().get(i).getX();
+					}
 					xList.add(move.getLocations().get(i).getX());
 				}
 				for (int i = min; i < max; i++) {
-					if (! locs[i][move.getLocations().get(i).getY()].isOnNormalTile()) {
+					if (! locs[i][move.getLocations().get(0).getY()].isOnNormalTile()) {
 						if (! xList.contains(i)) {
 							return false;
 						}
@@ -176,21 +188,6 @@ public class Board {
 			}
 		}
 		return true;
-	}
-	
-	/**
-	 * Method to compare the index to find the maximum and minimum.
-	 * @param i the index
-	 * @param max maximum index
-	 * @param min minimum index
-	 */
-	private void makeComparison(Integer i, Integer max, Integer min) {
-		if (i > max) {
-			max = i;
-		}
-		if (i < min) {
-			min = i;
-		}
 	}
 	
 	/**
