@@ -12,20 +12,17 @@ import edu.cmu.cs.cs214.hw4.core.specialtile.SpecialTile;
  */
 public class Move {
 	
-	private Location startLocation;
 	private List<Tile> tiles = new ArrayList<Tile>();
 	private List<SpecialTile> specialTiles = new ArrayList<SpecialTile>();
 	private List<Location> locs = new ArrayList<Location>();
 	private List<Location> spLocs = new ArrayList<Location>();
 	private List<Word> wordList = new ArrayList<Word>();
 	private boolean firstMove = false;
+	private boolean isValid = true;
 	
 	public Move(List<Tile> tiles, List<Location> locs) {
 		this.tiles = tiles;
 		this.locs = locs;
-		if (! locs.isEmpty()){
-			startLocation = locs.get(0);
-		}
 	}
 	
 	/**
@@ -33,6 +30,13 @@ public class Move {
 	 */
 	public void setFirstMove() {
 		firstMove = true;
+	}
+	
+	/**
+	 * Class to set the move as invalid.
+	 */
+	public void setInvalidMove() {
+		isValid = false;
 	}
 	
 	/**
@@ -49,15 +53,6 @@ public class Move {
 	public void removeTile() {
 		for (Location loc : locs) {
 			loc.removeTile();
-		}
-	}
-
-	/**
-	 * Method to remove the special tile on the location.
-	 */
-	public void removeSpecialTile() {
-		for (Location loc : spLocs) {
-			loc.removeSpecialTile();
 		}
 	}
 	
@@ -82,29 +77,29 @@ public class Move {
 			board.getLocation(spLocs.get(i).getX(), spLocs.get(i).getY()).placeSpecialTile(specialTiles.get(i));
 		}
 	}
-	
+
 	/**
-	 * Method to get the number of tiles of the move.
-	 * @return the number of tiles
+	 * Method to return the validation of the move.
+	 * @return true if the move is valid
 	 */
-	public int getTileNumber() {
-		return tiles.size();
-	}
-	
-	/**
-	 * Method to get the start location of the move.
-	 * @return the start location
-	 */
-	public Location getStartLocation() {
-		return startLocation;
+	public boolean getIsValid() {
+		return isValid;
 	}
 	
 	/**
 	 * Method to get tiles of the move.
-	 * @return
+	 * @return tiles of the move
 	 */
 	public List<Tile> getTiles() {
 		return tiles;
+	}
+	
+	/**
+	 * Method to get special tiles of the move.
+	 * @return special tiles of the move
+	 */
+	public List<SpecialTile> getSpecialTiles() {
+		return specialTiles;
 	}
 	
 	/**
@@ -133,9 +128,18 @@ public class Move {
 		Word word = new Word();
 		wordList = new ArrayList<Word>();
 
+		if (locs.size() == 0) {
+			return;
+		}
 		if (locs.size() == 1) {
 			wordList.addAll(makeWords(board, true));
 			wordList.addAll(makeWords(board, false));
+			if (wordList.size() == 0) {
+				word.addLetter(locs.get(0).getTile().getLetter());
+				word.addBaseValue(locs.get(0).getTile().getValue());
+				makeMultiplier(word, locs.get(0));
+				wordList.add(word);
+			}
 		} else {
 			int x = locs.get(0).getX();
 			int y = locs.get(0).getY();
@@ -152,6 +156,10 @@ public class Move {
 					word.addBaseValue(board.getLocation(x, y).getTile().getValue());
 					word.addLetter(board.getLocation(x, y).getTile().getLetter());
 					word.addLocation(board.getLocation(x, y));
+					makeMultiplier(word, board.getLocation(x, y));
+					if (y == 14) {
+						break;
+					}
 					y++;
 				}
 				wordList.add(word);
@@ -168,6 +176,10 @@ public class Move {
 					word.addBaseValue(board.getLocation(x, y).getTile().getValue());
 					word.addLetter(board.getLocation(x, y).getTile().getLetter());
 					word.addLocation(board.getLocation(x, y));
+					makeMultiplier(word, board.getLocation(x, y));
+					if (x == 14) {
+						break;
+					}
 					x++;
 				}
 				wordList.add(word);
@@ -211,7 +223,8 @@ public class Move {
 			while (board.getLocation(x, y).isOnNormalTile()) {
 				word.addBaseValue(board.getLocation(x, y).getTile().getValue());
 				word.addLetter(board.getLocation(x, y).getTile().getLetter());
-				word.addLocation(i);
+				word.addLocation(board.getLocation(x, y));
+				makeMultiplier(word, board.getLocation(x, y));
 				if (pointer) {
 					if (y == 14) {
 						break;
@@ -224,13 +237,21 @@ public class Move {
 					x++;
 				}
 			}
-//			if (i.getMultiplier() != null) {
-//				i.getMultiplier().updateWord(word, i.getTile());
-//			}
 			if (word.getWordLength() != 1) {
 				wordList.add(word);
 			}
 		}
 		return wordList;
+	}
+	
+	/**
+	 * Method to times multiplier to the word.
+	 * @param word to be multiplied
+	 * @param loc as the multiplier is
+	 */
+	private void makeMultiplier(Word word, Location loc) {
+		if (loc.getMultiplier() != null) {
+			loc.getMultiplier().updateWord(word, loc.getTile());
+		}
 	}
 }

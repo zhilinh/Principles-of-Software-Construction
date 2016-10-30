@@ -11,110 +11,93 @@ import java.util.List;
 public class Scrabble {
 	
 	private List<Player> players = new ArrayList<Player>();
-	private List<Player> winner = new ArrayList<Player>();
+	private List<Location> boomArea = new ArrayList<Location>();
 	private Player currentPlayer;
 	private TileLog tileLog = new TileLog();
 	private Board board = new Board();
-	private Dictionary dic = new Dictionary("C:/Users/Chillin'/zhilinh/homework/4/src/main/resources/words.txt");
+	private Dictionary dic = new Dictionary("src/main/resources/words.txt");
 	private int playerNum = 0;
 	private int counterNum = 1;
 	private int playerMaxNum;
+	private boolean hasFirstMove = true;
+	private boolean challengeResult;
+	private String activatedSp = "";
 	
 	/**
-	 * Main method to start the game and introduce players. 
-	 * @param args players' names
+	 * 
 	 */
-	public static void main(String[] args) {
-		Scrabble scrabble = new Scrabble(args);
-	}
-	
-	/**
-	 * Constructor to generate players.
-	 * @param args players' names
-	 */
-	public Scrabble(String[] args) {
-		playerMaxNum = args.length - 1;
-		for (String i : args) {
-			this.addPlayer(i);
+	public void startGame() {
+		playerMaxNum = players.size() - 1;
+		currentPlayer = players.get(0);
+		for (Player i : players) {
+			this.giveTiles(i.getMaxNumTile(), i);
 		}
-		currentPlayer = this.getCurrentPlayer();
-	}
-	
-	/**
-	 * Method to end the game.
-	 */
-	public void endGame() {
-		System.out.println(winner);
 	}
 	
 	/**
 	 * Method to run the game, decide if the game ends and find the winner.
 	 */
 	public void runGame(Move move) {
-		int num;
-		while (! (this.doesPlayerStop() || this.doesGameStop())) {
-			num = currentPlayer.getMaxNumTile() - currentPlayer.getTiles().size();
-			this.giveTiles(num, currentPlayer);
-			
-			if (currentPlayer.getSkip()) {
-				currentPlayer.skipFalse();
-			} else {
-				makeMove(move);
-			}
-			currentPlayer = this.getNextPlayer();
-			}
 		
-		int maxScore = 0;
-		List<Player> winner = new ArrayList<Player>();
-		for (Player i : players) {
-			if (i.getScore() > maxScore) {
-				maxScore = i.getScore();
-				winner = new ArrayList<Player>();
-				winner.add(i);
-			} else if (i.getScore() == maxScore) {
-				winner.add(i);
+		activatedSp = "";
+		if (currentPlayer.getSkip()) {
+			currentPlayer.skipFalse();
+		} else {
+			if (hasFirstMove) {
+				move.setFirstMove();
+				hasFirstMove = false;
 			}
-		this.winner = winner;
-		this.endGame();
+			if (! checkMoveValidation(move)) {
+				if (move.isFirstMove()) {
+					hasFirstMove = true;
+				}
+			move.setInvalidMove();
+			}	
 		}
 	}
 	
 	/**
 	 * Method to introduce the move to players, challenge it and update scores.
 	 */
-	public void makeMove(Move move) {		
-		if (checkMoveValidation(move)) {
-			currentPlayer.runMove(board, move);
-			move.placeTile(board);
-			
-			List<Player> challenger = getChallenger();
-			boolean challengeResult = false;
-			if (! challenger.isEmpty()) {
-				challengeResult = challengeCurrentPlayer();
-				if (challengeResult) {
-					System.out.println("Challenge Successed!");
-					for (Player i : challenger) {
-						i.updateScore(10);
-						move.removeTile();
+	public void makeMove(Move move) {
+		challengeResult = false;
+		currentPlayer.runMove(board, move);
+		List<Player> challenger = getChallenger();
+		boomArea = new ArrayList<Location>();
+		if (! challenger.isEmpty()) {
+			challengeResult = challengeCurrentPlayer();
+			if (challengeResult) {
+				for (Player i : challenger) {
+					if (move.isFirstMove()) {
+						hasFirstMove = true;
+					}
+					i.updateScore(10);
+					move.removeTile();
 					currentPlayer.updateScore(-currentPlayer.getLastMoveScore());
-					}
-				} else {
-					System.out.println("Challenge Failed");
-					for (Player i : challenger) {
-						i.skipTrue();
-					}
+				}
+			} else {
+				for (Player i : challenger) {
+					i.skipTrue();
 				}
 			}
-			if (! challengeResult) {
-				for (Location loc : move.getLocations()) {
-					if (loc.isOnSpecialTile()) {
-						loc.getSpecialTile().activateSp(this, loc);
-					}
-				}
-			}
-		} else {
-			System.out.println("Invalid Move!");
 		}
+		exchangeTiles(move.getTiles(), currentPlayer);
+		if (! challengeResult) {
+			for (Location loc : move.getLocations()) {
+				if (loc.isOnSpecialTile()) {
+					activatedSp = loc.getSpecialTile().activateSp(this, loc);
+					loc.removeSpecialTile();
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Method to add an exploded location to update the GUI.
+	 * @param loc exploded due to the Boom special tile
+	 */
+	public void addBoomArea(Location loc) {
+		boomArea.add(loc);
 	}
 	
 	/**
@@ -133,6 +116,14 @@ public class Scrabble {
 	}
 	
 	/**
+	 * Method to get whether a special tile is activated this turn.
+	 * @return message from special tiles
+	 */
+	public String getActivatedSp() {
+		return activatedSp;
+	}
+	
+	/**
 	 * Method to return a list of players.
 	 * @return a list of players
 	 */
@@ -141,11 +132,27 @@ public class Scrabble {
 	}
 	
 	/**
-	 * Method to return the board
-	 * @return the board of Scrabble Game.
+	 * Method to return the result of the challenge.
+	 * @return true if challenge successfully
+	 */
+	public boolean getChallengeResult() {
+		return challengeResult;
+	}
+	
+	/**
+	 * Method to return the board.
+	 * @return the board of Scrabble Game
 	 */
 	public Board getBoard() {
 		return board;
+	}
+	
+	/**
+	 * Method to return the exploded location to update the GUI.
+	 * @return a list of exploded location
+	 */
+	public List<Location> getBoomArea() {
+		return boomArea;
 	}
 	
 	/**
@@ -160,22 +167,26 @@ public class Scrabble {
 	 * Method to move to the next player in order.
 	 * @return the next player to move
 	 */
-	public Player getNextPlayer() {
+	public void getNextPlayer() {
 		if ((playerNum == playerMaxNum) && (counterNum == 1)) {
 			playerNum = 0;
-			return players.get(0);
+			currentPlayer = players.get(0);
 		} else if ((playerNum == 0) && (counterNum == -1)) {
 			playerNum = playerMaxNum;
-			return players.get(playerMaxNum);
+			currentPlayer = players.get(playerMaxNum);
 		} else {
 			playerNum += counterNum;
-			return players.get(playerNum);
-		}		
+			currentPlayer = players.get(playerNum);
+		}
+		if (currentPlayer.getSkip()) {
+			currentPlayer.skipFalse();
+			getNextPlayer();
+		}
 	}
 	
 	/**
-	 * Method to return the number of players.
-	 * @return the number of players
+	 * Method to return the index of the current player.
+	 * @return the number of the current players
 	 */
 	public int getPlayerNum() {
 		return playerNum;
@@ -186,6 +197,17 @@ public class Scrabble {
 	 * @return the winner of the game
 	 */
 	public List<Player> getWinner() {
+		int maxScore = 0;
+		List<Player> winner = new ArrayList<Player>();
+		for (Player i : players) {
+			if (i.getScore() > maxScore) {
+				maxScore = i.getScore();
+				winner = new ArrayList<Player>();
+				winner.add(i);
+			} else if (i.getScore() == maxScore) {
+				winner.add(i);
+			}
+		}
 		return winner;		
 	}
 	
@@ -251,14 +273,6 @@ public class Scrabble {
 	}
 	
 	/**
-	 * Method to find if any player wants to end the game.
-	 * @return true if someone wants to stop and vice versa
-	 */
-	public boolean doesPlayerStop() {
-		return true;
-	}
-	
-	/**
 	 * Method to find if the game should stop because the Tile Log runs out of tiles.
 	 * @return true if the Tile Log has no tile left and vice versa
 	 */
@@ -275,7 +289,11 @@ public class Scrabble {
 	 * @param move to be checked validation
 	 * @return true if the move is valid and vice versa
 	 */
-	public boolean checkMoveValidation(Move move) {
+	private boolean checkMoveValidation(Move move) {
+		
+		if (((move.getTiles().size() == 0) && (move.getSpecialTiles().size() == 0))) {
+			return false;
+		}
 		
 		for (Tile i : move.getTiles()) {
 			if (! players.get(playerNum).getTiles().contains(i)) {
@@ -303,7 +321,7 @@ public class Scrabble {
 	 * according to the dictionary.
 	 * @return true if the dictionary contains all words made by the move and false if one word is invalid
 	 */
-	public boolean challengeCurrentPlayer() {
+	private boolean challengeCurrentPlayer() {
 		Move move = currentPlayer.getMove();
 		String word;
 		for (Word i : move.getWordList()) {

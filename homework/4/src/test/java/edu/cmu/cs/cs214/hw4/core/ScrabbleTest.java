@@ -11,10 +11,8 @@ import org.junit.Test;
 
 public class ScrabbleTest {
 
-	private String[] args = {"Lin", "Jesse"};
-	private Scrabble scrabble = new Scrabble(args);
-	private Player player = scrabble.getCurrentPlayer();
-	private Board board = scrabble.getBoard();
+	private Scrabble scrabble = new Scrabble();
+	private Player player;
 	private Tile tile0 = new Tile('H', 1);
 	private Tile tile1 = new Tile('I', 2);
 	private Tile tile2 = new Tile('Z', 1);
@@ -27,9 +25,13 @@ public class ScrabbleTest {
 	private List<Tile> tiles = new ArrayList<Tile>();
 	private List<Location> locs = new ArrayList<Location>();
 	private Move move;
-	
+
 	@Test
 	public void testMakeMove() {
+		scrabble.addPlayer("Lin");
+		scrabble.addPlayer("Jesse");
+		scrabble.startGame();
+		player = scrabble.getCurrentPlayer();
 		tiles.add(tile0);											//Challenge Failed
 		tiles.add(tile1);
 		locs.add(loc0);
@@ -43,9 +45,10 @@ public class ScrabbleTest {
 		scrabble.runGame(move);
 		assertEquals(scrabble.getLastMove(player), move);
 		assertEquals(scrabble.getPlayerNum(), 0);
-		assertEquals(scrabble.getScore(player), 3);
+		assertEquals(scrabble.getScore(player), 4);
 		assertFalse(scrabble.doesGameStop());
-		player = scrabble.getNextPlayer();
+		scrabble.getNextPlayer();
+		player = scrabble.getCurrentPlayer();
 		scrabble.reverseCounterNum();
 		scrabble.reverseCounterNum();
 		
@@ -61,8 +64,7 @@ public class ScrabbleTest {
 		players.get(0).makeChallenge(true);
 		scrabble.makeMove(move);
 		assertTrue(scrabble.doesGameStop());
-		assertEquals(scrabble.getScore(player), 0);
-		assertEquals(scrabble.getWinner().get(0), players.get(0));
+		assertEquals(scrabble.getScore(player), 4);
 	}
 	
 }

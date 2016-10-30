@@ -14,8 +14,7 @@ import org.junit.Test;
  */
 public class BoardTest {
 	
-	private String[] args = {"Lin"};
-	private Scrabble scrabble = new Scrabble(args);
+	private Scrabble scrabble = new Scrabble();
 	private Board board = scrabble.getBoard();
 	private Move move;
 	private Tile tile0 = new Tile('S', 0);

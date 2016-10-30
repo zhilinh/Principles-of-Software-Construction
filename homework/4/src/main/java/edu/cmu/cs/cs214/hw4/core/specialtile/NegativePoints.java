@@ -14,24 +14,15 @@ public class NegativePoints extends BaseSpecialTile {
 	private final int price = 20;
 	private final String name = "Negative";
 	private Player currentPlayer;
-	private int lastMoveScore;
 	
 	/**
 	 * Method to activate the special tile and update the score of the current player. 
 	 */
 	@Override
-	public void activateSp(Scrabble scrabble, Location loc) {
+	public String activateSp(Scrabble scrabble, Location loc) {
 		currentPlayer = scrabble.getCurrentPlayer();
-		lastMoveScore = currentPlayer.getLastMoveScore();
-		currentPlayer.updateScore(-2 * lastMoveScore);
-	}
-
-	/**
-	 * Method to deactivate the special tile. 
-	 */
-	@Override
-	public void deactivateSp(Scrabble scrabble, Location loc) {
-		currentPlayer.updateScore(2 * lastMoveScore);
+		currentPlayer.updateScore(-2 * currentPlayer.getLastMoveScore());
+		return "Negative Points by " + this.getOwner().getName() + "!";
 	}
 
 	/**

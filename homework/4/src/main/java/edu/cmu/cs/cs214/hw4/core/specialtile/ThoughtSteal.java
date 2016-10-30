@@ -13,7 +13,7 @@ import edu.cmu.cs.cs214.hw4.core.Scrabble;
 public class ThoughtSteal extends BaseSpecialTile {
 
 	private final int price = 25;
-	private final String name = "ThoughtSteal";
+	private final String name = "T.Steal";
 	private Player currentPlayer;
 	private int originalScore;
 	
@@ -22,19 +22,12 @@ public class ThoughtSteal extends BaseSpecialTile {
 	 * copied by the current player.
 	 */
 	@Override
-	public void activateSp(Scrabble scrabble, Location loc) {
+	public String activateSp(Scrabble scrabble, Location loc) {
 		originalScore = this.getOwner().getScore();
 		this.getOwner().updateScore(-originalScore);
 		currentPlayer = scrabble.getCurrentPlayer();
 		this.getOwner().updateScore(currentPlayer.getScore());
-	}
-
-	/**
-	 * Method to deactivate the special tile.
-	 */
-	@Override
-	public void deactivateSp(Scrabble scrabble, Location loc) {
-		this.getOwner().updateScore(-this.getOwner().getScore() + originalScore);
+		return "Thought Steal by " + this.getOwner().getName() + "!";
 	}
 
 	/**

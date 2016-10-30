@@ -10,7 +10,7 @@ import edu.cmu.cs.cs214.hw4.core.Word;
  */
 public class TripleWord extends BaseMultiplier{
 
-	private final String name = "TripleWord";
+	private final String name = "3W";
 	
 	/**
 	 * Method to get the name of the multiplier.

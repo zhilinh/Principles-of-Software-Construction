@@ -1,1 +1,1 @@
-Change-player's-score tile: All players' score will rotate to the next player.
+Thought Steal: The owner of the special tile will change his/her score to be equal to the current player who triggered the special tile on board. (Inspired by Hearthstone)

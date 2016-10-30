@@ -17,14 +17,7 @@ public abstract class BaseSpecialTile implements SpecialTile {
 	 * Method to activate the special tile.
 	 */
 	@Override
-	public abstract void activateSp(Scrabble scrabble, Location loc);
-	
-	/**
-	 * Method to deactivate the special tile.
-	 */
-	@Override
-	public void deactivateSp(Scrabble scrabble, Location loc) {
-	}
+	public abstract String activateSp(Scrabble scrabble, Location loc);
 
 	/**
 	 * Method to set the owner of the special tile.
@@ -53,5 +46,4 @@ public abstract class BaseSpecialTile implements SpecialTile {
 	 */
 	@Override
 	public abstract int getPrice();
-
 }

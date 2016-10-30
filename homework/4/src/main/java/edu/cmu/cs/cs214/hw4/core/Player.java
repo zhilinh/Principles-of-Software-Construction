@@ -26,7 +26,7 @@ public class Player {
 	 */
 	public Player(String name) {
 		this.name = name;
-		this.maxNumTile = 5;
+		this.maxNumTile = 7;
 	}
 	
 	/**
@@ -89,7 +89,7 @@ public class Player {
 	 * Method to get the inventory of special tiles of the player.
 	 * @return the inventory of special tiles of the player
 	 */
-	public List<SpecialTile> getSpecialTileInventory() {
+	public List<SpecialTile> getSpecialTiles() {
 		return spInventory;
 	}
 	
@@ -126,13 +126,12 @@ public class Player {
 	}
 	
 	/**
-	 * Method to update the inventory after the move
-	 * @param move that used tiles to be removed from the inventory
-	 * @return the updated inventory
+	 * Method to update the tiles and special tiles of the player
+	 * @param move with tiles and special tiles to be removed
 	 */
-	public List<Tile> updateTiles(Move move) {
+	public void updateTiles(Move move) {
 		inventory.removeAll(move.getTiles());
-		return inventory;
+		spInventory.removeAll(move.getSpecialTiles());
 	}
 	
 	/**
@@ -176,12 +175,12 @@ public class Player {
 		List<Word> wordList = new ArrayList<Word>();
 		this.lastMoveScore = 0;
 		this.move = move;
-		this.updateTiles(move);
+		updateTiles(move);
 		move.placeTile(board);
 		move.getWords(board, move.getLocations());
 		wordList = move.getWordList();
 		for (Word i : wordList) {
-			this.updateScore(i.getValue());
+			this.updateScore(i.getValue() * i.getMultipleTimes());
 			this.lastMoveScore += i.getValue();
 		}
 	}

@@ -13,13 +13,9 @@ public interface SpecialTile {
 
 	/**
 	 * Method to activate special tiles. 
+	 * @return TODO
 	 */
-	public void activateSp(Scrabble scrabble, Location loc);
-	
-	/**
-	 * Method to deactivate special tiles. 
-	 */
-	public void deactivateSp(Scrabble scrabble, Location loc);
+	public String activateSp(Scrabble scrabble, Location loc);
 	
 	/**
 	 * Method to set the owner of the special tile. 

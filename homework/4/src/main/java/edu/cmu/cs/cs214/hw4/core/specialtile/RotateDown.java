@@ -8,23 +8,17 @@ import edu.cmu.cs.cs214.hw4.core.Scrabble;
  * @author zhilinh
  *
  */
-public class UnknownTile extends BaseSpecialTile {
+public class RotateDown extends BaseSpecialTile {
 	
-	private final int price = 30;
-	private final String name = "UnknownTile";
+	private final int price = 15;
+	private final String name = "R.Down";
 	
 	/**
 	 * Method to activate the special tile. 
 	 */
 	@Override
-	public void activateSp(Scrabble scrabble, Location loc) {
-	}
-
-	/**
-	 * Method to deactivate the special tile. 
-	 */
-	@Override
-	public void deactivateSp(Scrabble scrabble, Location loc) {
+	public String activateSp(Scrabble scrabble, Location loc) {
+		return "Whole board rotated down by " + this.getOwner().getName() + "!";
 	}
 
 	/**

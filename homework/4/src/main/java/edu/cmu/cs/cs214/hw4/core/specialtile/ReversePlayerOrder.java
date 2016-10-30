@@ -11,22 +11,15 @@ import edu.cmu.cs.cs214.hw4.core.Scrabble;
 public class ReversePlayerOrder extends BaseSpecialTile {
 	
 	private final int price = 10;
-	private final String name = "ReverseScoreOrder";
+	private final String name = "Reverse";
 	
 	/**
 	 * Method to activate the special tile and reserve the play order.
 	 */
 	@Override
-	public void activateSp(Scrabble scrabble, Location loc) {
+	public String activateSp(Scrabble scrabble, Location loc) {
 		scrabble.reverseCounterNum();
-	}
-
-	/**
-	 * Method to deactivate the special tile. 
-	 */
-	@Override
-	public void deactivateSp(Scrabble scrabble, Location loc) {
-		scrabble.reverseCounterNum();
+		return "Play order reversed by " + this.getOwner().getName() + "!";
 	}
 
 	/**

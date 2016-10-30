@@ -92,11 +92,15 @@ public class Board {
 	 * @return true if the first move placed a tile on the star
 	 */
 	public boolean isOnStar(Move move) {
-		if ((move.getStartLocation().getX() == star.getX()) && (move.getStartLocation().getY() == star.getY())) {
-			return true;
-		} else {
+		if (move.getTiles().size() == 0) {
 			return false;
 		}
+		for (Location i : move.getLocations()) {
+			if ((i.getX() == star.getX()) && (i.getY() == star.getY())) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
@@ -109,17 +113,25 @@ public class Board {
 			return true;
 		}
 		for (Location i : move.getLocations()) {
-			if (locs[i.getX() - 1][i.getY()].isOnNormalTile()) {
-				return true;
+			if (i.getX() > 0) {
+				if (locs[i.getX() - 1][i.getY()].isOnNormalTile()) {
+					return true;
+				}
 			}
-			if (locs[i.getX() + 1][i.getY()].isOnNormalTile()) {
-				return true;
+			if (i.getX() < 14) {
+				if (locs[i.getX() + 1][i.getY()].isOnNormalTile()) {
+					return true;
+				}
 			}
-			if (locs[i.getX()][i.getY() - 1].isOnNormalTile()) {
-				return true;
+			if (i.getY() > 0) {
+				if (locs[i.getX()][i.getY() - 1].isOnNormalTile()) {
+					return true;
+				}
 			}
-			if (locs[i.getX()][i.getY() + 1].isOnNormalTile()) {
-				return true;
+			if (i.getY() < 14) {
+				if (locs[i.getX()][i.getY() + 1].isOnNormalTile()) {
+					return true;
+				}
 			}
 		}
 		return false;
@@ -131,7 +143,10 @@ public class Board {
 	 * @return true if 
 	 */
 	public boolean checkInLine(Move move) {
-		if (move.getTileNumber() == 1 || move.getTileNumber() == 0) {
+		if (move.getLocations().size() == 0) {
+			return true;
+		}
+		if (move.getTiles().size() == 1 || move.getTiles().size() == 0) {
 			return true;
 		} else {
 			if (move.getLocations().get(1).getX() == move.getLocations().get(0).getX()) {
@@ -139,7 +154,7 @@ public class Board {
 				int min = move.getLocations().get(0).getY();
 				List<Integer> yList = new ArrayList<Integer>();
 				yList.add(min);
-				for (int i = 1; i < move.getTileNumber(); i++) {
+				for (int i = 1; i < move.getTiles().size(); i++) {
 					if (! (move.getLocations().get(i).getX() == move.getLocations().get(0).getX())) {
 						return false;
 					}
@@ -164,7 +179,7 @@ public class Board {
 				int min = move.getLocations().get(0).getX();
 				List<Integer> xList = new ArrayList<Integer>();
 				xList.add(min);
-				for (int i = 1; i < move.getTileNumber(); i++) {
+				for (int i = 1; i < move.getTiles().size(); i++) {
 					if (! (move.getLocations().get(i).getY() == move.getLocations().get(0).getY())) {
 						return false;
 					}
@@ -197,6 +212,6 @@ public class Board {
 	 * @return location with index x and y on board
 	 */
 	public Location getLocation(int x, int y) {
-		return locs[x][y];
+			return locs[x][y];
 	}
 }

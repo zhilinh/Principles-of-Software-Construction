@@ -2,8 +2,11 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'checkstyle'
 apply plugin: 'cobertura'
+apply plugin: 'application'
 
 test.testLogging { exceptionFormat "full"; events "failed", "passed", "skipped" }
+
+mainClassName = "edu.cmu.cs.cs214.hw4.gui.Main"
 
 configurations.all {
     resolutionStrategy {

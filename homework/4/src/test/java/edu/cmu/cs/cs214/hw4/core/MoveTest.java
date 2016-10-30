@@ -69,8 +69,6 @@ public class MoveTest {
 		spLocs.add(loc0);
 		move = new Move(tiles, locs);
 		move.placeSpecialTile(spTiles, spLocs, board);
-		move.removeSpecialTile();
-		assertEquals(move.getStartLocation(), null);
 		
 		tiles.add(tile0);										//add a line of tiles to the move
 		locs.add(loc0);
@@ -83,8 +81,6 @@ public class MoveTest {
 		move.setFirstMove();									//for tiles and locations
 		assertTrue(move.isFirstMove());
 		move.placeTile(board);
-		assertEquals(move.getTileNumber(), 3);
-		assertEquals(move.getStartLocation(), loc0);
 		assertEquals(move.getTiles(), tiles);
 		assertEquals(move.getLocations(), locs);		
 		
@@ -94,13 +90,13 @@ public class MoveTest {
 		locs.add(loc4);
 		tiles.add(tile5);
 		locs.add(loc5);
-		makeWord(21);
+		makeWord(32);
 		
 		tiles = new ArrayList<Tile>();							//test the word function with one tile 
 		locs = new ArrayList<Location>();
 		tiles.add(tile6);
 		locs.add(loc6);
-		makeWord(21);
+		makeWord(38);
 		
 		tiles = new ArrayList<Tile>();							//test the word function with two tiles 
 		locs = new ArrayList<Location>();						//in the same row
@@ -108,7 +104,7 @@ public class MoveTest {
 		locs.add(loc3);
 		tiles.add(tile7);
 		locs.add(loc7);
-		makeWord(15);		
+		makeWord(16);		
 		move.removeTile();
 	}
 }

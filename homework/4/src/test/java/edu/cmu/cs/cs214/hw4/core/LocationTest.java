@@ -18,7 +18,6 @@ import edu.cmu.cs.cs214.hw4.core.specialtile.SpecialTile;
  */
 public class LocationTest {
 	
-	private Move move;
 	private Location loc = new Location(7, 7);
 	private Tile tile = new Tile('A', 1);
 	private SpecialTile st = new Boom();
