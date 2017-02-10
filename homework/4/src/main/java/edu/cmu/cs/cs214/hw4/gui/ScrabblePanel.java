@@ -31,7 +31,7 @@ public class ScrabblePanel extends JPanel implements GameChangeListener{
 	
 	private static final int BOARD_SIZE = 15;
 	private static final int PLAYER_MAX_TILE_NUMBER = 7;
-	private static final int PLAYER_MAX_SPTILE_NUMBER = 5;
+	private static final int PLAYER_MAX_SPTILE_NUMBER = 4;
 	
 	private Scrabble scrabble;
 	private List<Player> players;
