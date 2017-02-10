@@ -4,7 +4,7 @@ import edu.cmu.cs.cs214.hw4.core.Location;
 import edu.cmu.cs.cs214.hw4.core.Scrabble;
 
 /**
- * Class to generate the unknown special tile.
+ * WARNING: Unfinished class to generate the unknown special tile.
  * @author zhilinh
  *
  */
